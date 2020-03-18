@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.bj.mapper.TakeMapper">
+
+    <insert id="Insert">
+        INSERT INTO take(name,number,peopleName,type,brand,serialnumber,room,date) VALUES (#{name},#{number},#{peopleName},#{type},#{brand},#{serialnumber},#{room},#{date})
+    </insert>
+
+    <delete id="Delete">
+        DELETE  FROM take WHERE id=#{id}
+    </delete>
+
+    <select id="Select" resultType="com.example.bj.entity.Take">
+        SELECT * FROM take WHERE id=#{id}
+    </select>
+</mapper>

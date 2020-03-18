@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.bj.mapper.BeiPinMapper">
+
+    <insert id="Insert">
+        INSERT INTO beipin(name,number,type,brand,serialnumber,room,supply,date) VALUES (#{name},#{number},#{type},#{brand},#{serialnumber},#{room},#{supply},#{date})
+    </insert>
+
+    <delete id="Delete">
+        DELETE  FROM beipin WHERE id=#{id}
+    </delete>
+
+    <select id="Select" resultType="com.example.bj.entity.BeiPin">
+        SELECT * FROM beipin WHERE id=#{id}
+    </select>
+
+</mapper>

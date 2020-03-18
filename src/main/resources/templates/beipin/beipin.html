@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://getbootstrap.com/docs/4.1/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="http://www.airchina.com.cn/favicon.ico" />
+    <title>备品备件系统</title>
+    <link href="/bj/static/asserts/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/bj/static/asserts/css/dashboard.css" rel="stylesheet" />
+</head>
+<body th:inline="text">
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="commons/bar::sidebar(activeUri='beipin')"></div>
+        <main role="main" class="col-md-2 ml-sm-auto col-lg-11 px-4">
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead><th>当前库存</th>
+                    <tr>
+                        <th>备件备品名称</th>
+                        <th>库存数量</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="stock:${stockPageInfo.list}">
+                        <td th:text="${stock.name}">1</td>
+                        <td th:text="${stock.number}">1</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="text-align:left">
+                    <a  href="/bj/beipin/add.html"  class="btn btn-success"  >备品入库</a>
+                    <a  href="/bj/beipin/delete.html" class="btn btn-success"  >备品出库</a>
+                    <a  href="/bj/beipin/addQuery.html" class="btn btn-success"  >入库记录查询</a>
+                    <a  href="/bj/beipin/deleteQuery.html" class="btn btn-success"  >出库记录查询</a>
+                    <a  href="/bj/beipin/query.html" class="btn btn-success"  >库存查询</a>
+                </div>
+                <div style="text-align: center">
+                    <p>当前 <span th:text="${stockPageInfo.pageNum}"></span> 页,总 <span th:text="${stockPageInfo.pages}"></span> 页,共 <span th:text="${stockPageInfo.total}"></span> 条记录</p>
+                </div>
+                <div style="text-align: center">
+                    <a th:href="@{/beipin}" >首页</a>
+                    <a th:href="@{/beipin(pageNum=${stockPageInfo.hasPreviousPage}?${stockPageInfo.prePage}:1)}" >上一页</a>
+                    <a th:href="@{/beipin(pageNum=${stockPageInfo.hasNextPage}?${stockPageInfo.nextPage}:${stockPageInfo.pages})}" >下一页</a>
+                    <a th:href="@{/beipin(pageNum=${stockPageInfo.pages})}" >尾页</a>
+                </div>
+            </div>
+        </main>
+        <form id="deleteEmpForm" method="post">
+            <input type="hidden" name="_method" value="delete"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://getbootstrap.com/docs/4.1/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="http://www.airchina.com.cn/favicon.ico" />
+    <title>备品备件数据查询</title>
+    <link href="/bj/static/asserts/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/bj/static/asserts/css/dashboard.css" rel="stylesheet" />
+</head>
+
+<body >
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="commons/bar::sidebar(activeUri='beipin')"></div>
+        <main role="main" class="col-md-2 ml-sm-auto col-lg-11 px-4">
+            <div class="form-group">
+            <form action="/bj/beipin/queryStock" method="post">
+                <div class="form-group">
+                    <label for="name" >备品备件名称</label>
+                    <input type="text" class="form-control" id ="name" name="name" placeholder="备品备件名称" required="" autofocus=""/>
+                </div>
+            <button type="submit" class="btn btn-success" >查询</button>
+            <a  href="/bj/beipin" class="btn btn-success" >返回</a>
+            </form>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>

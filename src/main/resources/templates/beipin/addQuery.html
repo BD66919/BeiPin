@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://getbootstrap.com/docs/4.1/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="http://www.airchina.com.cn/favicon.ico" />
+    <title>入库数据查询</title>
+    <link href="/bj/static/asserts/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/bj/static/asserts/css/dashboard.css" rel="stylesheet" />
+</head>
+
+<body >
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="commons/bar::sidebar(activeUri='beipin')"></div>
+        <main role="main" class="col-md-2 ml-sm-auto col-lg-11 px-4">
+            <form action="/bj/beipin/BeiPinQuery" method="post">
+                <th>以下栏目可只填一项或多项</th>
+                <div class="form-group">
+                    <label for="name" >备品备件名称</label>
+                    <input type="text" class="form-control" id ="name" name="name" placeholder="备品备件名称"  autofocus=""/>
+                </div>
+                <div class="form-group">
+                    <label for="number">数量</label>
+                    <input type="text" class="form-control" id = "number" name="number" placeholder="备件备品数量" />
+                </div>
+                <div class="form-group">
+                    <label for="type">型号</label>
+                    <input type="text" class="form-control" id = "type" name="type" placeholder="型号" />
+                </div>
+                <div class="form-group">
+                    <label for="brand">品牌</label>
+                    <input type="text" class="form-control" id = "brand" name="brand" placeholder="品牌" />
+                </div>
+                <div class="form-group">
+                    <label for="number">序列号</label>
+                    <input type="text" class="form-control" id = "serialnumber" name="serialnumber" placeholder="序列号" />
+                </div>
+                <div class="form-group">
+                    <label for="room">入库库房</label>
+                    <input type="text" class="form-control" id = "room" name="room" placeholder="库房名称" />
+                </div>
+                <div class="form-group">
+                    <label for="supply">供应商</label>
+                    <input type="text" class="form-control" id = "supply" name="supply" placeholder="供应商" />
+                </div>
+                <div class="form-group">
+                    <label for="date" >采购日期</label>
+                    <input type="text" class="form-control"  id= "date" name="date" placeholder="年-月-日" />
+                </div>
+            <button type="submit" class="btn btn-success" >查询</button>
+            <a  href="/bj/beipin" class="btn btn-success" >返回</a>
+            </form>
+                <div th:text="${msg}" id="msg" style="display:none" >
+                </div>
+        </main>
+    </div>
+</div>
+<script src="/bj/static/asserts/js/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="/bj/static/asserts/js/popper.min.js"></script>
+<script src="/bj/static/asserts/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+var message2=$("#msg").html();
+if(message2!="") {
+alert(message2)
+}
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://getbootstrap.com/docs/4.1/examples/sign-in/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="http://www.airchina.com.cn/favicon.ico" />
+    <title>备品备件系统登录页面</title>
+    <link href="/bj/static/asserts/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bj/static/asserts/css/signin.css" rel="stylesheet">
+</head>
+
+<body class="text-center" th:inline="text">
+<form class="form-signin" action="/bj/userLogin" method="post">
+    <img class="mb-4" src="/bj/static/asserts/img/logo2.JPG" alt="" width=250 height=250>
+    <h1 class="h3 mb-3 font-weight-normal" >备品备件系统</h1>
+    <p style="color: red" th:text="${message}" th:if="${not #strings.isEmpty(message)}"></p>
+    <label class="sr-only" >用户名</label>
+    <input type="text"  name="loginName" class="form-control" placeholder="用户名" required="" autofocus=""/>
+    <label class="sr-only" >密码</label>
+    <input type="password" name="loginPwd"  class="form-control" placeholder="密码"  required="" id="demo_input"/>
+    <button class="btn btn-xs btn-success btn-block" type = "button" onclick="hideShowPsw()">显示密码 </button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" >登陆</button>
+
+    <p class="mt-5 mb-3 text-muted">中国国际航空公司重庆分公司</p>
+
+</form>
+
+<script src="/bj/static/asserts/js/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="/bj/static/asserts/js/popper.min.js"></script>
+<script src="/bj/static/asserts/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    // 这里使用最原始的js语法实现，可对应换成jquery语法进行逻辑控制
+    var demoInput = document.getElementById("demo_input");
+    //隐藏text block，显示password block
+    function hideShowPsw(){
+        if (demoInput.type == "password") {
+            demoInput.type = "text";
+        }else {
+            demoInput.type = "password";
+        }
+    }
+</script>
+
+</body>
+</html>
