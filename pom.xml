@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.6.RELEASE</version>
+        <version>2.2.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
@@ -15,9 +15,14 @@
     <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
+
+
     <properties>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <start-class>com.example.bj.BjApplication</start-class>
     </properties>
+
 
     <dependencies>
         <!--web依赖        -->
@@ -64,6 +69,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- 阿里巴巴镜像下载依赖        -->
@@ -103,6 +114,12 @@
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
             <version>4.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jquery</artifactId>
+                    <groupId>org.webjars</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- 分页依赖       -->
@@ -110,6 +127,12 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.5</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mybatis-spring-boot-starter</artifactId>
+                    <groupId>org.mybatis.spring.boot</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- mybatis依赖       -->

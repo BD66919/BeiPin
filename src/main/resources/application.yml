@@ -8,14 +8,10 @@ mybatis:
 spring:
   datasource:
     username: root
-    password:
+    password: g4885885
     url: jdbc:mysql://localhost:3306/beipin?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-
-
-  profiles:
-    active: dev
 
   #控制台输出语句
   jpa:
