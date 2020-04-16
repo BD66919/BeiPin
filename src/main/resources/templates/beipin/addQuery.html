@@ -18,10 +18,14 @@
         <div th:replace="commons/bar::sidebar(activeUri='beipin')"></div>
         <main role="main" class="col-md-2 ml-sm-auto col-lg-11 px-4">
             <form action="/bj/beipin/BeiPinQuery" method="post">
-                <th>以下栏目可只填一项或多项</th>
+                <th>以下栏目皆可不填或填一项及多项</th>
                 <div class="form-group">
                     <label for="name" >备品备件名称</label>
-                    <input type="text" class="form-control" id ="name" name="name" placeholder="备品备件名称"  autofocus=""/>
+                    <input type="text" name="name" list = "name">
+                    <datalist class="form-control" id = "name" style = "display: none" >
+                        <option th:each="result:${nameList}" th:text="${result.name}"></option>
+                        <option text=""></option>
+                    </datalist>
                 </div>
                 <div class="form-group">
                     <label for="number">数量</label>

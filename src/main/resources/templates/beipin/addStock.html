@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://getbootstrap.com/docs/4.1/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="http://www.airchina.com.cn/favicon.ico" />
+    <title>添加备品备件类型</title>
+    <link href="/bj/static/asserts/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/bj/static/asserts/css/dashboard.css" rel="stylesheet" />
+</head>
+
+<body >
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="commons/bar::sidebar(activeUri='beipin')"></div>
+        <main role="main" class="col-md-2 ml-sm-auto col-lg-11 px-4">
+            <table class="table table-striped table-sm">
+                <thead><th>前已存在的备件备品类型</th>
+                <tr>
+                    <th>备件备品名称</th>
+                    <th>库存数量</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="stock:${nameList}">
+                    <td th:text="${stock.name}">1</td>
+                    <td th:text="${stock.number}">1</td>
+                </tr>
+                </tbody>
+            </table>
+            <form action="/bj/beipin/stockAdd" method="post">
+                <div class="form-group">
+                    <label for="name">备件备品名</label>
+                    <input type="text" class="form-control" id = "name" name = "name" placeholder="备件备品名" required=""/>
+                </div>
+                <button type="submit" class="btn btn-success" th:text="添加" th:value="添加" th:name="action"></button>
+                <button type="submit" class="btn btn-danger" th:text="删除" th:value="删除" th:name="action"></button>
+                <a  href="/bj/beipin" class="btn btn-primary"  >返回</a>
+            </form>
+            <div th:text="${msg}" id="msg" style="display:none" >
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="/bj/static/asserts/js/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="/bj/static/asserts/js/popper.min.js"></script>
+<script src="/bj/static/asserts/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+var message2=$("#msg").html();
+if(message2!="") {
+    alert(message2)
+    }
+})
+</script>
+</body>
+</html>

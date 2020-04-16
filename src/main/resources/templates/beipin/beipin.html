@@ -10,6 +10,7 @@
     <title>备品备件系统</title>
     <link href="/bj/static/asserts/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/bj/static/asserts/css/dashboard.css" rel="stylesheet" />
+
 </head>
 <body th:inline="text">
 <div class="container-fluid">
@@ -31,17 +32,18 @@
                     </tr>
                     </tbody>
                 </table>
-                <div style="text-align:left">
+                <div style="text-align:left" >
                     <a  href="/bj/beipin/add.html"  class="btn btn-success"  >备品入库</a>
                     <a  href="/bj/beipin/delete.html" class="btn btn-success"  >备品出库</a>
+                    <a  href="/bj/beipin/addStock.html" class="btn btn-success"  >添加（删除）备品类型</a>
                     <a  href="/bj/beipin/addQuery.html" class="btn btn-success"  >入库记录查询</a>
                     <a  href="/bj/beipin/deleteQuery.html" class="btn btn-success"  >出库记录查询</a>
                     <a  href="/bj/beipin/query.html" class="btn btn-success"  >库存查询</a>
                 </div>
-                <div style="text-align: center">
+                <div style="text-align: center" class="fixed-bottom">
                     <p>当前 <span th:text="${stockPageInfo.pageNum}"></span> 页,总 <span th:text="${stockPageInfo.pages}"></span> 页,共 <span th:text="${stockPageInfo.total}"></span> 条记录</p>
                 </div>
-                <div style="text-align: center">
+                <div style="text-align: center" class="fixed-bottom">
                     <a th:href="@{/beipin}" >首页</a>
                     <a th:href="@{/beipin(pageNum=${stockPageInfo.hasPreviousPage}?${stockPageInfo.prePage}:1)}" >上一页</a>
                     <a th:href="@{/beipin(pageNum=${stockPageInfo.hasNextPage}?${stockPageInfo.nextPage}:${stockPageInfo.pages})}" >下一页</a>
@@ -49,9 +51,6 @@
                 </div>
             </div>
         </main>
-        <form id="deleteEmpForm" method="post">
-            <input type="hidden" name="_method" value="delete"/>
-        </form>
     </div>
 </div>
 </body>

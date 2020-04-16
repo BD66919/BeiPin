@@ -22,6 +22,9 @@
                     <tr>
                         <th>备件备品名</th>
                         <th>数量</th>
+                        <th>类型</th>
+                        <th>品牌</th>
+                        <th>序列号</th>
                         <th>库房</th>
                         <th>供应商</th>
                         <th>日期</th>
@@ -31,6 +34,9 @@
                     <tr th:each="beipin:${BeiPinListInfo.list}">
                         <td th:text="${beipin.name}">1</td>
                         <td th:text="${beipin.number}">1</td>
+                        <td th:text="${beipin.type}">1</td>
+                        <td th:text="${beipin.brand}">1</td>
+                        <td th:text="${beipin.serialnumber}">1</td>
                         <td th:text="${beipin.room}">1</td>
                         <td th:text="${beipin.supply}">1</td>
                         <td th:text="${beipin.date}">1</td>

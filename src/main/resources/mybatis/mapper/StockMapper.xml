@@ -12,6 +12,9 @@
         UPDATE stock SET number=#{number} WHERE name=#{name}
     </update>
 
+    <delete id="Delete">
+        DELETE FROM stock WHERE name=#{name}
+    </delete>
     <select id="get" resultType="com.example.bj.entity.Stock">
         SELECT * from stock WHERE name=#{name}
     </select>

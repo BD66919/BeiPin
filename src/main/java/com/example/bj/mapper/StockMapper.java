@@ -11,6 +11,8 @@ public interface StockMapper {
 
     public Stock get(String name);
 
+    public void Delete(String name);
+
     public List<Stock> list();
 
 

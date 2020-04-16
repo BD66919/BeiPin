@@ -11,27 +11,105 @@
     <title>备品备件系统登录页面</title>
     <link href="/bj/static/asserts/css/bootstrap.min.css" rel="stylesheet">
     <link href="/bj/static/asserts/css/signin.css" rel="stylesheet">
+    <style>
+        .error{
+            color:red;
+        }
+    </style>
 </head>
 
 <body class="text-center" th:inline="text">
-<form class="form-signin" action="/bj/userLogin" method="post">
+<form class="form-signin"  id="signupForm" action = "/bj/userLogin"  method="post">
     <img class="mb-4" src="/bj/static/asserts/img/logo2.JPG" alt="" width=250 height=250>
     <h1 class="h3 mb-3 font-weight-normal" >备品备件系统</h1>
-    <p style="color: red" th:text="${message}" th:if="${not #strings.isEmpty(message)}"></p>
+    <p style="color: red" th:text="${message}" th:if="${not #strings.isEmpty(message)}" id="m" ></p>
+    <span id="accountStatus" style="color: red"></span>
     <label class="sr-only" >用户名</label>
-    <input type="text"  name="loginName" class="form-control" placeholder="用户名" required="" autofocus=""/>
+    <input type="text" id="loginName" name="loginName" class="form-control" placeholder="用户名" th:value="${userName}" onblur="login()" th:autofocus="!${isName}" />
     <label class="sr-only" >密码</label>
-    <input type="password" name="loginPwd"  class="form-control" placeholder="密码"  required="" id="demo_input"/>
+    <input type="password"  id="demo_input"  name="loginPwd" class="form-control" th:autofocus="${isPwd}" placeholder="密码"  />
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> 记住密码
+                </label>
+            </div>
+        </div>
+    </div>
     <button class="btn btn-xs btn-success btn-block" type = "button" onclick="hideShowPsw()">显示密码 </button>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" >登陆</button>
-
+    <button class="btn btn-lg btn-primary btn-block" type="submit">登陆 </button>
     <p class="mt-5 mb-3 text-muted">中国国际航空公司重庆分公司</p>
-
 </form>
 
-<script src="/bj/static/asserts/js/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<!--<button id="b1">隐藏div</button>-->
+
+<!--<button id="b2">显示div</button>-->
+
+<!--<br>-->
+<!--<br>-->
+
+<!--<div id="d">-->
+
+<!--    这是一个div-->
+
+<!--</div>-->
+
+
+
+
+<!--<div id="myDiv"><h2>Let AJAX change this text</h2></div>-->
+<!--<button id="b01" type="button">Change Content</button>-->
+
+<!--<script src="/bj/static/asserts/js/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<script src="/bj/static/asserts/js/jquery-1.11.1.min.js"></script>
 <script src="/bj/static/asserts/js/popper.min.js"></script>
 <script src="/bj/static/asserts/js/bootstrap.min.js"></script>
+<script src="/bj/static/asserts/js/messages_zh.js"></script>
+<!--<script src="/bj/static/asserts/js/jquery.validate.min.js"></script>-->
+
+<!--<script>-->
+<!--    $(function(){-->
+<!--        $("#b1").click(function(){-->
+<!--            $("#d").hide();-->
+<!--        });-->
+<!--        $("#b2").click(function(){-->
+<!--            $("#d").show();-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+
+<!--<script>-->
+
+<!--    // $(document).ready(function(){-->
+<!--    //     $("#b01").click(function(){-->
+<!--    //         htmlobj=$.ajax({url:"/bj/static/asserts/img/demo_test.txt",async:false});-->
+<!--    //         $("#myDiv").html(htmlobj.responseText);-->
+<!--    //     });-->
+<!--    // });-->
+<!--    // $("button").click(function(){-->
+<!--    //     $("#div1").load("/bj/static/asserts/img/demo_test.txt",function(responseTxt,statusTxt,xhr){-->
+<!--    //         if(statusTxt=="success")-->
+<!--    //             alert("外部内容加载成功！");-->
+<!--    //         if(statusTxt=="error")-->
+<!--    //             alert("Error: "+xhr.status+": "+xhr.statusText);-->
+<!--    //     });-->
+<!--    // });-->
+
+
+<!--<script>-->
+<!--    var heros=-->
+<!--        [-->
+<!--            {"name":"盖伦","hp":616},-->
+<!--            {"name":"提莫","hp":313},-->
+<!--            {"name":"死歌","hp":432},-->
+<!--            {"name":"火女","hp":389}-->
+<!--        ]-->
+<!--    document.write("JSON数组大小"+heros.length);-->
+
+<!--</script>-->
 
 <script type="text/javascript">
     // 这里使用最原始的js语法实现，可对应换成jquery语法进行逻辑控制
@@ -43,6 +121,30 @@
         }else {
             demoInput.type = "password";
         }
+    }
+</script>
+
+<script>
+    function login(){
+        var loginName1 =document.getElementById("loginName").value;
+        // var loginPwd1 = document.getElementById("demo_input").value;
+        var obj = window.document.location;
+        var BASE_PATH = obj.href.substring(0, obj.href.indexOf(obj.pathname));
+        $.ajax({
+            type:"POST",
+            url: "/bj/login1",
+            data:{
+                loginName : loginName1,
+                // loginPwd : loginPwd1
+            },
+            dataType : "json",
+            success : function(data) {
+                var msg = data.msg;
+                $("#accountStatus").html(msg);
+                document.getElementById('m').innerHTML="";
+                document.getElementById('demo_input').focus();
+            }
+        })
     }
 </script>
 

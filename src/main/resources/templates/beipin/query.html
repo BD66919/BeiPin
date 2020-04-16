@@ -21,7 +21,9 @@
             <form action="/bj/beipin/queryStock" method="post">
                 <div class="form-group">
                     <label for="name" >备品备件名称</label>
-                    <input type="text" class="form-control" id ="name" name="name" placeholder="备品备件名称" required="" autofocus=""/>
+                    <select class="form-control" id = "name" name = "name" required="">
+                        <option th:each="result:${nameList}" th:text="${result.name}"></option>
+                    </select>
                 </div>
             <button type="submit" class="btn btn-success" >查询</button>
             <a  href="/bj/beipin" class="btn btn-success" >返回</a>

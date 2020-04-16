@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,20 +26,30 @@ import java.util.List;
 @Controller
 public class BeipinController {
 
-    @Autowired
-    BeiPinMapper beiPinMapper;
+    private BeiPinMapper beiPinMapper;
 
-    @Autowired
-    StockMapper stockMapper;
+    private StockMapper stockMapper;
 
-    @Autowired
-    TakeMapper takeMapper;
+    private TakeMapper takeMapper;
 
-    @Autowired
-    BeiPinRepository beiPinRepository;
+    private BeiPinRepository beiPinRepository;
 
-    @Autowired
-    TakeRepository takeRepository;
+
+    private TakeRepository takeRepository;
+
+
+    public BeipinController(BeiPinMapper beiPinMapper,
+                            StockMapper stockMapper,
+                            TakeMapper takeMapper,
+                            BeiPinRepository beiPinRepository,
+                            TakeRepository takeRepository){
+        this.stockMapper = stockMapper;
+        this.beiPinMapper = beiPinMapper;
+        this.takeMapper = takeMapper;
+        this.takeRepository = takeRepository;
+        this.beiPinRepository = beiPinRepository;
+
+    }
 
     @GetMapping("/beipin")
     public String beipin(Model model,
@@ -51,7 +62,10 @@ public class BeipinController {
     }
 
     @GetMapping("/beipin/add")
-    public String add(){ return "beipin/add.html";}
+    public String add(Model model){
+        List<Stock> nameList = stockMapper.list();
+        model.addAttribute("nameList",nameList);
+        return "beipin/add.html";}
 
     @PostMapping("/beipin/addBeipin")
     public String addBeipin(BeiPin beipin,Model model) throws ParseException {
@@ -69,11 +83,16 @@ public class BeipinController {
         }
         beiPinMapper.Insert(beipin);
         model.addAttribute("msg","添加数据成功");
+        List<Stock> nameList = stockMapper.list();
+        model.addAttribute("nameList",nameList);
         return "beipin/add.html";
     }
 
     @GetMapping("/beipin/delete")
-    public String delete(){ return "beipin/delete.html";}
+    public String delete(Model model){
+        List<Stock> nameList = stockMapper.list();
+        model.addAttribute("nameList",nameList);
+        return "beipin/delete.html";}
 
     @PostMapping("/beipin/deleteBeipin")
     public String deleteBeipin(Take take, Model model) throws ParseException {
@@ -93,11 +112,16 @@ public class BeipinController {
         }
         takeMapper.Insert(take);
         model.addAttribute("msg","备品出库成功");
+        List<Stock> nameList = stockMapper.list();
+        model.addAttribute("nameList",nameList);
         return "beipin/delete.html";
     }
 
     @GetMapping("/beipin/addQuery")
-    public String addQuery(){ return "beipin/addQuery.html";}
+    public String addQuery(Model model){
+        List<Stock> nameList = stockMapper.list();
+        model.addAttribute("nameList",nameList);
+        return "beipin/addQuery.html";}
 
     @GetMapping("/beipin/addQueryResult")
     public String addQueryResult(){ return "beipin/addQueryResult.html";}
@@ -122,12 +146,23 @@ public class BeipinController {
         BeiPin beipin = beiPinMapper.Select(id);
         String name = beipin.getName();
         int number = beipin.getNumber();
-        Stock stock = stockMapper.get(name);
-        stock.setNumber(stock.getNumber()-number);
-        stockMapper.Update(stock);
-        beiPinMapper.Delete(id);
-        model.addAttribute("msg","删除成功");
-        return "beipin/addQuery";
+        if(stockMapper.get(name)!=null){
+            Stock stock = stockMapper.get(name);
+            stock.setNumber(stock.getNumber()-number);
+            stockMapper.Update(stock);
+            beiPinMapper.Delete(id);
+            model.addAttribute("msg","删除成功");
+            List<Stock> nameList = stockMapper.list();
+            model.addAttribute("nameList",nameList);
+            return "beipin/addQuery";
+        }
+        else{
+            beiPinMapper.Delete(id);
+            model.addAttribute("msg","删除成功");
+            List<Stock> nameList = stockMapper.list();
+            model.addAttribute("nameList",nameList);
+            return "beipin/addQuery";
+        }
     }
 
     @PostMapping("/beipin/takeDelete={id}")
@@ -135,16 +170,30 @@ public class BeipinController {
         Take take = takeMapper.Select(id);
         String name = take.getName();
         int number =take.getNumber();
-        Stock stock = stockMapper.get(name);
-        stock.setNumber(stock.getNumber()+number);
-        stockMapper.Update(stock);
-        takeMapper.Delete(id);
-        model.addAttribute("msg","删除成功");
-        return "beipin/deleteQuery";
+        if(stockMapper.get(name)!=null) {
+            Stock stock = stockMapper.get(name);
+            stock.setNumber(stock.getNumber() + number);
+            stockMapper.Update(stock);
+            takeMapper.Delete(id);
+            model.addAttribute("msg", "删除成功");
+            List<Stock> nameList = stockMapper.list();
+            model.addAttribute("nameList", nameList);
+            return "beipin/deleteQuery";
+        }
+        else{
+            takeMapper.Delete(id);
+            model.addAttribute("msg", "删除成功");
+            List<Stock> nameList = stockMapper.list();
+            model.addAttribute("nameList", nameList);
+            return "beipin/deleteQuery";
+        }
     }
 
     @GetMapping("/beipin/deleteQuery")
-    public String deleteQuery(){ return "beipin/deleteQuery.html";}
+    public String deleteQuery(Model model){
+        List<Stock> nameList = stockMapper.list();
+        model.addAttribute("nameList",nameList);
+        return "beipin/deleteQuery.html";}
 
     @GetMapping("/beipin/deleteQueryResult")
     public String deleteQueryResult(){ return "beipin/deleteQueryResult.html";}
@@ -165,7 +214,10 @@ public class BeipinController {
     }
 
     @GetMapping("/beipin/query")
-    public String queryBeiPin(){ return "beipin/query.html";}
+    public String queryBeiPin(Model model){
+        List<Stock> nameList = stockMapper.list();
+        model.addAttribute("nameList",nameList);
+        return "beipin/query.html";}
 
     @GetMapping("/beipin/queryResult")
     public String queryResult(){ return "beipin/queryResult.html";}
@@ -179,4 +231,50 @@ public class BeipinController {
         return "beipin/queryResult.html";
     }
 
+    @GetMapping("/beipin/addStock")
+    public String addStock(Model model){
+        List<Stock> nameList = stockMapper.list();
+        model.addAttribute("nameList",nameList);
+        return "beipin/addStock.html";
+    }
+
+    @PostMapping("/beipin/stockAdd")
+    public String stockAdd(String name,String action,Model model) throws ParseException {
+        if(action.equals("添加")) {
+            if ((stockMapper.get(name) != null)) {
+                model.addAttribute("msg", "备品类型已存在");
+                List<Stock> nameList = stockMapper.list();
+                model.addAttribute("nameList", nameList);
+                return "beipin/addStock.html";
+            }
+            Stock stock = new Stock(name, 0);
+            stockMapper.Insert(stock);
+            model.addAttribute("msg", "添加数据成功");
+            List<Stock> nameList = stockMapper.list();
+            model.addAttribute("nameList", nameList);
+            return "beipin/addStock.html";
+        }
+        else{
+            if ((stockMapper.get(name) == null)) {
+                model.addAttribute("msg", "备品类型不存在");
+                List<Stock> nameList = stockMapper.list();
+                model.addAttribute("nameList", nameList);
+                return "beipin/addStock.html";
+            }
+            Stock stock = stockMapper.get(name);
+            if(stock.getNumber()!=0){
+                model.addAttribute("msg", "该备品类型库存不为0，无法删除");
+                List<Stock> nameList = stockMapper.list();
+                model.addAttribute("nameList", nameList);
+                return "beipin/addStock.html";
+            }
+            else {
+                stockMapper.Delete(name);
+                model.addAttribute("msg", "删除数据成功");
+                List<Stock> nameList = stockMapper.list();
+                model.addAttribute("nameList", nameList);
+                return "beipin/addStock.html";
+            }
+        }
+    }
 }
