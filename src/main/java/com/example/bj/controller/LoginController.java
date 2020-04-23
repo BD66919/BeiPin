@@ -1,6 +1,7 @@
 package com.example.bj.controller;
 
 import com.example.bj.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +21,8 @@ import java.util.Map;
 @Controller
 public class LoginController {
 
-    private final UserMapper userMapper;
-
-    //构造器自己会启用
-    public LoginController(UserMapper userMapper) {
-        this.userMapper = userMapper;
-
-    }
+    @Autowired
+    UserMapper userMapper;
 
     private static String getMD5String(String str) {
         try {
@@ -38,10 +34,6 @@ public class LoginController {
             return null;
         }
     }
-
-
-
-    private String userName;
 
     @GetMapping("/index")
     public String index() {
@@ -55,8 +47,9 @@ public class LoginController {
                             Model model,
                             Map<String,Object> map){
         String Pwd = getMD5String(loginPwd);
-        userName = userMapper.getUserName(loginName);
+        String userName = userMapper.getUserName(loginName);
         String userPwd = userMapper.getUserPwd(Pwd, loginName);
+
         if (userName == null || userPwd == null){
             map.put("message","密码错误");
             model.addAttribute("userName",loginName);
@@ -84,13 +77,13 @@ public class LoginController {
         return "login.html";
     }
 
-
     @PostMapping(value = "/login1")
     @ResponseBody
-    public Map<String,Object> login1(HttpServletRequest request, HttpSession session){
+    public Map<String,Object> login1(HttpServletRequest request){
         Map<String,Object> map = new HashMap<String,Object>();
         String loginName = request.getParameter("loginName");
-        userName = userMapper.getUserName(loginName);
+
+        String userName = userMapper.getUserName(loginName);
         System.out.println(userName);
         if (userName == null )
             map.put("msg","用户不存在");
@@ -103,17 +96,6 @@ public class LoginController {
     public String success(){
         return "redirect:/beipin";
     }
-
-
-    @PostMapping("/login123")
-    @ResponseBody
-    public Object login(String id,String pwd) {
-        Map<String, Object> params= new HashMap<>();
-        params.put("id", id);
-        params.put("pwd", pwd);
-        return params;
-    }
-
 
 
 }

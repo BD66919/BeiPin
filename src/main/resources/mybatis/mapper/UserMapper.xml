@@ -6,11 +6,11 @@
 <mapper namespace="com.example.bj.mapper.UserMapper">
 
     <select id="getUserName" resultType="String">
-        SELECT userName FROM user WHERE userName=#{loginName}
+        SELECT username FROM user WHERE username=#{loginName}
     </select>
 
-    <select id="getUserPwd"  resultType="String">
-        SELECT userPwd FROM user WHERE userPwd=#{loginPwd} and userName=#{loginName}
+    <select id="getUserPwd" resultType="String">
+        SELECT userpwd FROM user WHERE userpwd=#{loginPwd} and username=#{loginName}
     </select>
 
 </mapper>
