@@ -76,26 +76,5 @@ public class LoginController {
         }
         return "login.html";
     }
-
-    @PostMapping(value = "/login1")
-    @ResponseBody
-    public Map<String,Object> login1(HttpServletRequest request){
-        Map<String,Object> map = new HashMap<String,Object>();
-        String loginName = request.getParameter("loginName");
-
-        String userName = userMapper.getUserName(loginName);
-        System.out.println(userName);
-        if (userName == null )
-            map.put("msg","用户不存在");
-        else
-            map.put("msg","");
-        return map;
-    }
-
-    @RequestMapping("/success")
-    public String success(){
-        return "redirect:/beipin";
-    }
-
-
+    
 }
